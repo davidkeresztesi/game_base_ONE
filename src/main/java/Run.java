@@ -1,3 +1,4 @@
+import Logic.Settings;
 import World.Board;
 import World.Enemy;
 import World.Entity;
@@ -9,6 +10,8 @@ import java.util.Set;
 public class Run {
     public static void main(String[] args){
 
+        Settings settings = new Settings();
+
         Set<Entity> entitySet = new HashSet<>();
 
         Player player_01 = new Player(100, 77, 50);
@@ -17,16 +20,11 @@ public class Run {
         entitySet.add(enemy_01);
 
 
-        Board startBoard = new Board(25, 25, entitySet);
+        Board startBoard = new Board( settings.getStartBoardX(), settings.getGetStartBoardY(), entitySet);
 
-
-
-
-
-
+        startBoard.generateTileSet();
         startBoard.placeElements();
-
-
+        startBoard.printBoard();
 
     }
 }
