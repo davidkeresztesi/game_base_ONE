@@ -1,18 +1,18 @@
-import Logic.Settings;
-import World.Board;
-import World.Enemy;
-import World.Entity;
-import World.Player;
+import Logic.Util;
+import Model.Board;
+import Model.Creature.Enemy;
+import Model.Creature.Creature;
+import Model.Creature.Player;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Run {
+public class App {
     public static void main(String[] args){
 
-        Settings settings = new Settings();
+        Util settings = new Util();
 
-        Set<Entity> entitySet = new HashSet<>();
+        Set<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(100, 77, 50);
         entitySet.add(player_01);
@@ -22,7 +22,7 @@ public class Run {
 
         Board startBoard = new Board( settings.getStartBoardX(), settings.getGetStartBoardY(), entitySet);
 
-        startBoard.generateTileSet();
+        startBoard.createBoard();
         startBoard.placeElements();
         startBoard.printBoard();
 

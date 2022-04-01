@@ -1,6 +1,6 @@
-package World;
+package Model.Creature;
 
-public abstract class Entity {
+public abstract class Creature {
 
     private int xPosition;
     private int yPosition;
@@ -9,7 +9,7 @@ public abstract class Entity {
     private int powerPlayer_01;
     private int staminaPlayer_01;
 
-    public Entity(int healthPlayer_01, int powerPlayer_01, int staminaPlayer_01) {
+    public Creature(int healthPlayer_01, int powerPlayer_01, int staminaPlayer_01) {
         this.healthPlayer_01 = healthPlayer_01;
         this.powerPlayer_01 = powerPlayer_01;
         this.staminaPlayer_01 = staminaPlayer_01;

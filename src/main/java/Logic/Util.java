@@ -1,6 +1,8 @@
 package Logic;
 
-public class Settings {
+import java.util.concurrent.ThreadLocalRandom;
+
+public class Util {
 
     private static int numOfPlayers = 1;
     private static int numOfEnemyAI = 0;
@@ -10,6 +12,15 @@ public class Settings {
 
     private static int startBoardX = 4;
     private static int getStartBoardY = 4;
+
+    public static int getRandomIntFromRange(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max);
+    }
+
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
     public int getStartBoardX() {
         return startBoardX;
