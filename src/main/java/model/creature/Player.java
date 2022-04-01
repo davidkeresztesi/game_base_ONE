@@ -1,4 +1,4 @@
-package Model.Creature;
+package model.creature;
 
 public class Player extends Creature {
 

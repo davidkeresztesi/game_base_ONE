@@ -1,4 +1,4 @@
-package Logic;
+package logic;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -22,11 +22,11 @@ public class Util {
         System.out.flush();
     }
 
-    public int getStartBoardX() {
+    public static int getStartBoardX() {
         return startBoardX;
     }
 
-    public int getGetStartBoardY() {
+    public static int getGetStartBoardY() {
         return getStartBoardY;
     }
 }

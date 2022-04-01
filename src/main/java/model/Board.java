@@ -1,8 +1,8 @@
-package Model;
+package model;
 
-import Model.Creature.Creature;
+import logic.Util;
+import model.creature.Creature;
 
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -19,6 +19,11 @@ public class Board {
         this.ySize = ySize;
         this.boardTileMatrix = new Tile[xSize][ySize];
         this.entitySet = entitySet;
+
+        createBoard();
+        placeCreatures();
+        printBoard();
+
     }
 
     public void createBoard() {
@@ -29,11 +34,10 @@ public class Board {
         }
     }
 
-    public void placeElements() {
-        Random random = new Random();
+    public void placeCreatures() {
         for (Creature e : entitySet) {
-            e.setxPosition(random.nextInt(xSize));
-            e.setyPosition(random.nextInt(ySize));
+            e.setxPosition(Util.getRandomIntFromRange(1,10));
+            e.setyPosition(Util.getRandomIntFromRange(1,10));
         }
     }
 
@@ -45,7 +49,6 @@ public class Board {
             System.out.println();
         }
     }
-
 
     public int getxSize() {
         return xSize;
