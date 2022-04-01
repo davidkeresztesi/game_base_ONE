@@ -38,7 +38,12 @@ public class Board {
     }
 
     public void printBoard() {
-
+        for (int i = 0; i < boardTileMatrix.length; i++) {
+            for (int j = 0; j < boardTileMatrix[i].length; j++) {
+                System.out.print(boardTileMatrix[i][j].getTileStatus().getDisplayChar());
+            }
+            System.out.println();
+        }
     }
 
 
