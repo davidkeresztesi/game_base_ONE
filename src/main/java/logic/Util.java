@@ -10,8 +10,8 @@ public class Util {
     private static int goalCoins = 10;
     private static int startCoin = 4;
 
-    private static int startBoardX = 4;
-    private static int getStartBoardY = 4;
+    private static int startBoardX = 10;
+    private static int startBoardY = 10;
 
     public static int getRandomIntFromRange(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max);
@@ -26,7 +26,7 @@ public class Util {
         return startBoardX;
     }
 
-    public static int getGetStartBoardY() {
-        return getStartBoardY;
+    public static int getStartBoardY() {
+        return startBoardY;
     }
 }

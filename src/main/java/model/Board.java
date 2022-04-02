@@ -21,7 +21,9 @@ public class Board {
         this.entitySet = entitySet;
 
         createBoard();
-        placeCreatures();
+
+        for (Creature creature : entitySet) placeCreature(creature);
+
         printBoard();
 
     }
@@ -34,11 +36,16 @@ public class Board {
         }
     }
 
-    public void placeCreatures() {
-        for (Creature e : entitySet) {
-            e.setxPosition(Util.getRandomIntFromRange(1,10));
-            e.setyPosition(Util.getRandomIntFromRange(1,10));
+    public void placeCreature(Creature creature) {
+
+        for (int i = 0; i < boardTileMatrix.length; i++) {
+            for (int j = 0; j < boardTileMatrix[i].length; j++) {
+                if (i == creature.getxPosition() && j == creature.getyPosition()){
+                    boardTileMatrix[i][j].setTileStatus(Status.FULL);
+                }
+            }
         }
+
     }
 
     public void printBoard() {

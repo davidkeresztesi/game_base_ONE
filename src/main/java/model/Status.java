@@ -2,7 +2,7 @@ package model;
 
 public enum Status {
 
-EMPTY('E'), FULL('F'), PLAYER('p'), ENEMY('e');
+EMPTY('-'), FULL('F'), PLAYER('p'), ENEMY('e');
 
     final char displayChar;
 

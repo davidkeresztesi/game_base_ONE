@@ -21,17 +21,30 @@ public class Engine {
         this.entitySet = new HashSet<>();
 
         Player player_01 = new Player(100, 77, 50);
-        Enemy enemy_01 = new Enemy(10, 5, 50);
-        entitySet.add(enemy_01);
+        Enemy enemy_01 = new Enemy(50, 33, 25);
+
+        player_01.setxPosition(Util.getRandomIntFromRange(1,10));
+        player_01.setyPosition(Util.getRandomIntFromRange(1,10));
+
+        enemy_01.setxPosition(Util.getRandomIntFromRange(1,10)+2);
+        enemy_01.setxPosition(Util.getRandomIntFromRange(1,10)+2);
+
         entitySet.add(player_01);
 
-        startBoard = new Board(Util.getStartBoardX(), Util.getGetStartBoardY(), entitySet);
+        startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
+        startBoard.placeCreature(player_01);
+        startBoard.placeCreature(enemy_01);
+
+
+
 
     }
 
     Scanner scanner = new Scanner(System.in);
 
     public void runGame() {
+
+
 
         while (isRunning){
             System.out.println("the game is running still");
