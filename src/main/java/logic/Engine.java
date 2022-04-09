@@ -2,7 +2,6 @@ package logic;
 
 import model.Board;
 import model.creature.Creature;
-import model.creature.Enemy;
 import model.creature.Player;
 
 import java.util.HashSet;
@@ -16,13 +15,13 @@ public class Engine {
 
     private boolean isRunning = true;
 
-    public Engine(){
+    public Engine() {
 
         this.entitySet = new HashSet<>();
 
         Player player_01 = new Player(100, 77, 50);
-        player_01.setxPosition(Util.getRandomIntFromRange(1,10));
-        player_01.setyPosition(Util.getRandomIntFromRange(1,10));
+        player_01.setxPosition(Util.getRandomIntFromRange(1, 10));
+        player_01.setyPosition(Util.getRandomIntFromRange(1, 10));
 
         entitySet.add(player_01);
 
@@ -35,45 +34,59 @@ public class Engine {
 
     public void runGame(Set<Creature> entitySet, Board startBoard) {
 
-        Creature player =  entitySet.stream().findFirst().get();
+        Creature player = entitySet.stream().findFirst().get();
 
-        while (isRunning){
-            System.out.println(player.getxPosition() +" - "+ player.getyPosition() );
-
+        while (isRunning) {
+            System.out.println(player.getxPosition()+"x" +  " - "+ player.getyPosition()+"y");
 
             String input = scanner.nextLine();
             char command = input.charAt(0);
 
-            if (command == 'q') isRunning = false;
+            switch (command) {
 
-            if (command == 'p') System.out.println("this is printed text");
-////////////
-            if (command == 'w'){
-                player.setyPosition(player.getyPosition()-1);
-                startBoard.placeCreature(player);
-            }
-            if (command == 's'){
-                player.setyPosition(player.getyPosition()+1);
-                startBoard.placeCreature(player);
-            }
+                case 'q':
+                    isRunning = false;
 
-            if (command == 'a'){
-                player.setxPosition(player.getxPosition()-1);
-                startBoard.placeCreature(player);
-            }
-            if (command == 'd'){
-                player.setxPosition(player.getxPosition()+1);
-                startBoard.placeCreature(player);
-            }
+                case 'p':
+                    System.out.println("this is printed text");
 
-            startBoard.printBoard();
+                case 'd':
+                    startBoard.removeCreature(player);
+                    player.setyPosition(player.getyPosition()+1);
+                    startBoard.placeCreature(player);
+                    startBoard.printBoard();
+                    break;
+
+                case 'a':
+                    startBoard.removeCreature(player);
+                    player.setyPosition(player.getyPosition()-1);
+                    startBoard.placeCreature(player);
+                    startBoard.printBoard();
+                    break;
+
+                case 'w':
+                    startBoard.removeCreature(player);
+                    player.setxPosition(player.getxPosition()-1);
+                    startBoard.placeCreature(player);
+                    startBoard.printBoard();
+                    break;
+
+                case 's':
+                    startBoard.removeCreature(player);
+                    player.setxPosition(player.getxPosition()+1);
+                    startBoard.placeCreature(player);
+                    startBoard.printBoard();
+                    break;
+
+            }
         }
     }
 
     private int inputChecker(String input) {
         return input.length();
     }
-//////////////////
+
+    //////////////////
     public Set<Creature> getEntitySet() {
         return entitySet;
     }

@@ -18,9 +18,7 @@ public class Board {
 
         createBoard();
 
-        for (Creature creature : entitySet){
-            placeCreature(creature);
-        }
+        for (Creature creature : entitySet) placeCreature(creature);
 
         printBoard();
 
@@ -37,12 +35,21 @@ public class Board {
     public void placeCreature(Creature creature) {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
-                if (i == creature.getyPosition() && j == creature.getxPosition()){
+                if (i == creature.getxPosition() && j == creature.getyPosition()){
                     boardTileMatrix[i][j].setTileStatus(Status.FULL);
                 }
             }
         }
+    }
 
+    public void removeCreature(Creature creature) {
+        for (int i = 0; i < boardTileMatrix.length; i++) {
+            for (int j = 0; j < boardTileMatrix[i].length; j++) {
+                if (i == creature.getxPosition() && j == creature.getyPosition()){
+                    boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
+                }
+            }
+        }
     }
 
     public void printBoard() {
