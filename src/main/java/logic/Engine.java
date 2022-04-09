@@ -21,33 +21,25 @@ public class Engine {
         this.entitySet = new HashSet<>();
 
         Player player_01 = new Player(100, 77, 50);
-        Enemy enemy_01 = new Enemy(50, 33, 25);
-
         player_01.setxPosition(Util.getRandomIntFromRange(1,10));
         player_01.setyPosition(Util.getRandomIntFromRange(1,10));
-
-        enemy_01.setxPosition(Util.getRandomIntFromRange(1,10)+2);
-        enemy_01.setxPosition(Util.getRandomIntFromRange(1,10)+2);
 
         entitySet.add(player_01);
 
         startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
         startBoard.placeCreature(player_01);
-        startBoard.placeCreature(enemy_01);
-
-
-
 
     }
 
     Scanner scanner = new Scanner(System.in);
 
-    public void runGame() {
+    public void runGame(Set<Creature> entitySet, Board startBoard) {
 
-
+        Creature player =  entitySet.stream().findFirst().get();
 
         while (isRunning){
-            System.out.println("the game is running still");
+            System.out.println(player.getxPosition() +" - "+ player.getyPosition() );
+
 
             String input = scanner.nextLine();
             char command = input.charAt(0);
@@ -55,12 +47,38 @@ public class Engine {
             if (command == 'q') isRunning = false;
 
             if (command == 'p') System.out.println("this is printed text");
+////////////
+            if (command == 'w'){
+                player.setyPosition(player.getyPosition()-1);
+                startBoard.placeCreature(player);
+            }
+            if (command == 's'){
+                player.setyPosition(player.getyPosition()+1);
+                startBoard.placeCreature(player);
+            }
 
+            if (command == 'a'){
+                player.setxPosition(player.getxPosition()-1);
+                startBoard.placeCreature(player);
+            }
+            if (command == 'd'){
+                player.setxPosition(player.getxPosition()+1);
+                startBoard.placeCreature(player);
+            }
+
+            startBoard.printBoard();
         }
     }
 
     private int inputChecker(String input) {
         return input.length();
     }
+//////////////////
+    public Set<Creature> getEntitySet() {
+        return entitySet;
+    }
 
+    public Board getStartBoard() {
+        return startBoard;
+    }
 }

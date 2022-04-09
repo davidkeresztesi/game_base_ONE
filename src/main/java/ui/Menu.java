@@ -2,14 +2,7 @@ package ui;
 
 import logic.Engine;
 import logic.Util;
-import model.Board;
-import model.creature.Creature;
-import model.creature.Enemy;
-import model.creature.Player;
-
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Menu {
 
@@ -53,6 +46,7 @@ public class Menu {
 
     private void startGame(){
         Engine engine = new Engine();
-        engine.runGame();
+        engine.runGame(engine.getEntitySet(), engine.getStartBoard());
     }
+
 }
