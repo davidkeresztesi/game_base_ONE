@@ -1,5 +1,7 @@
 package model;
 import model.creature.Creature;
+
+import java.util.List;
 import java.util.Set;
 
 public class Board {
@@ -66,6 +68,10 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public void boardFromScan(List<String> listedLevel){
+        //makes Board from scanned String list pls
     }
 
     public int getxSize() {

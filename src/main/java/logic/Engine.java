@@ -40,7 +40,6 @@ public class Engine {
         startBoard.placeCreature(player_01);
         startBoard.placeCreature(enemy_01);
 
-
     }
 
     public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
