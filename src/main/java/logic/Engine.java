@@ -38,14 +38,17 @@ public class Engine {
 
     }
 
-    Scanner scanner = new Scanner(System.in);
-
     public void runGame(Set<Creature> entitySet, Board startBoard) {
 
-        Creature player = entitySet.stream().findFirst().get();
+        Scanner scanner = new Scanner(System.in);
+
+        Creature player = entitySet.stream()
+                .filter(creature -> creature.getCreatureStatus() == Status.PLAYER)
+                .findAny()
+                .orElse(null);
 
         while (isRunning) {
-            System.out.println(player.getxPosition()+"x" +  " - "+ player.getyPosition()+"y");
+            System.out.println(player.getxPosition() + "x" + " - " + player.getyPosition() + "y");
 
             String input = scanner.nextLine();
             char command = input.charAt(0);
@@ -60,28 +63,28 @@ public class Engine {
 
                 case 'd':
                     startBoard.removeCreature(player);
-                    player.setyPosition(player.getyPosition()+1);
+                    player.setyPosition(player.getyPosition() + 1);
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
 
                 case 'a':
                     startBoard.removeCreature(player);
-                    player.setyPosition(player.getyPosition()-1);
+                    player.setyPosition(player.getyPosition() - 1);
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
 
                 case 'w':
                     startBoard.removeCreature(player);
-                    player.setxPosition(player.getxPosition()-1);
+                    player.setxPosition(player.getxPosition() - 1);
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
 
                 case 's':
                     startBoard.removeCreature(player);
-                    player.setxPosition(player.getxPosition()+1);
+                    player.setxPosition(player.getxPosition() + 1);
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
