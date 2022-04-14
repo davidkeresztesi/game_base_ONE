@@ -2,6 +2,8 @@ package ui;
 
 import logic.Engine;
 import logic.Util;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
@@ -9,7 +11,7 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
     Util util = new Util();
 
-    public void mainMenu(){
+    public void mainMenu() throws IOException {
 
         System.out.println("pick an option please:");
         System.out.println("1 - new game");
@@ -44,7 +46,7 @@ public class Menu {
         }
     }
 
-    private void startGame(){
+    private void startGame() throws IOException {
         Engine engine = new Engine();
         engine.runGame(engine.getEntitySet(), engine.getStartBoard());
     }

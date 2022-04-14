@@ -6,11 +6,15 @@ import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
 
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Engine {
+
+    public static final String DATA_PATH = "src/main/resources/maps/";
+    public static final String TXT = ".txt";
 
     private Board startBoard;
     private Set<Creature> entitySet;
@@ -36,9 +40,10 @@ public class Engine {
         startBoard.placeCreature(player_01);
         startBoard.placeCreature(enemy_01);
 
+
     }
 
-    public void runGame(Set<Creature> entitySet, Board startBoard) {
+    public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -105,9 +110,33 @@ public class Engine {
                     startBoard.printBoard();
                     break;
 
+                case 'r':
+                    List<String> listedLevel = mapReader("first_level");
+                    for (String line : listedLevel) {
+                        System.out.println(line);
+                    }
+
             }
         }
     }
+
+
+    private List<String>  mapReader(String fileName) throws IOException {
+        String inPath = DATA_PATH + fileName + TXT;
+        List<String> textHolderList = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inPath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                textHolderList.add(line);
+            }
+            reader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return textHolderList;
+    }
+
 
     private int inputChecker(String input) {
         return input.length();
