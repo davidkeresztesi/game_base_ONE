@@ -8,6 +8,8 @@ public class Board {
     private int ySize;
     private Tile[][] boardTileMatrix;
 
+    private int stepCounter;
+
     private Set<Creature> entitySet;
 
     public Board(int xSize, int ySize, Set<Creature> entitySet) {
@@ -15,6 +17,7 @@ public class Board {
         this.ySize = ySize;
         this.boardTileMatrix = new Tile[xSize][ySize];
         this.entitySet = entitySet;
+        this.stepCounter = 0;
 
         createBoard();
 
@@ -22,6 +25,10 @@ public class Board {
 
         printBoard();
 
+    }
+
+    public void addStepCount(){
+        stepCounter++;
     }
 
     public void createBoard() {
@@ -69,6 +76,10 @@ public class Board {
         return ySize;
     }
 
+    public int getStepCounter() {
+        return stepCounter;
+    }
+
     public void setxSize(int xSize) {
         this.xSize = xSize;
     }
@@ -77,4 +88,7 @@ public class Board {
         this.ySize = ySize;
     }
 
+    public void setStepCounter(int stepCounter) {
+        this.stepCounter = stepCounter;
+    }
 }

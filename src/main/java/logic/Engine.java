@@ -48,7 +48,11 @@ public class Engine {
                 .orElse(null);
 
         while (isRunning) {
-            System.out.println(player.getxPosition() + "x" + " - " + player.getyPosition() + "y");
+
+            //coordinate test
+            //system.out.println(player.getxPosition() + "x" + " - " + player.getyPosition() + "y");
+
+            System.out.println("Step counter:" + startBoard.getStepCounter());
 
             String input = scanner.nextLine();
             char command = input.charAt(0);
@@ -64,6 +68,9 @@ public class Engine {
                 case 'd':
                     startBoard.removeCreature(player);
                     player.setyPosition(player.getyPosition() + 1);
+
+                    startBoard.addStepCount();
+
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
@@ -71,6 +78,9 @@ public class Engine {
                 case 'a':
                     startBoard.removeCreature(player);
                     player.setyPosition(player.getyPosition() - 1);
+
+                    startBoard.addStepCount();
+
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
@@ -78,6 +88,9 @@ public class Engine {
                 case 'w':
                     startBoard.removeCreature(player);
                     player.setxPosition(player.getxPosition() - 1);
+
+                    startBoard.addStepCount();
+
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
@@ -85,6 +98,9 @@ public class Engine {
                 case 's':
                     startBoard.removeCreature(player);
                     player.setxPosition(player.getxPosition() + 1);
+
+                    startBoard.addStepCount();
+
                     startBoard.placeCreature(player);
                     startBoard.printBoard();
                     break;
