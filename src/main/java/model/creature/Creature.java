@@ -1,6 +1,10 @@
 package model.creature;
 
+import model.Status;
+
 public abstract class Creature {
+
+    private Status creatureStatus;
 
     private int xPosition;
     private int yPosition;
@@ -9,10 +13,15 @@ public abstract class Creature {
     private int powerPlayer_01;
     private int staminaPlayer_01;
 
-    public Creature(int healthPlayer_01, int powerPlayer_01, int staminaPlayer_01) {
+    public Creature(Status creatureStatus, int healthPlayer_01, int powerPlayer_01, int staminaPlayer_01) {
+        this.creatureStatus = creatureStatus;
         this.healthPlayer_01 = healthPlayer_01;
         this.powerPlayer_01 = powerPlayer_01;
         this.staminaPlayer_01 = staminaPlayer_01;
+    }
+
+    public Status getCreatureStatus() {
+        return creatureStatus;
     }
 
     public int getxPosition() {
@@ -35,6 +44,10 @@ public abstract class Creature {
         return staminaPlayer_01;
     }
 
+    public void setCreatureStatus(Status creatureStatus) {
+        this.creatureStatus = creatureStatus;
+    }
+
     public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
     }
@@ -54,4 +67,5 @@ public abstract class Creature {
     public void setStaminaPlayer_01(int staminaPlayer_01) {
         this.staminaPlayer_01 = staminaPlayer_01;
     }
+
 }

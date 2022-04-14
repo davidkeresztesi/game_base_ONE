@@ -36,7 +36,7 @@ public class Board {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
                 if (i == creature.getxPosition() && j == creature.getyPosition()){
-                    boardTileMatrix[i][j].setTileStatus(Status.FULL);
+                    boardTileMatrix[i][j].setTileStatus(creature.getCreatureStatus());
                 }
             }
         }
