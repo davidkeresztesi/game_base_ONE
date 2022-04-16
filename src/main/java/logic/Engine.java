@@ -24,7 +24,29 @@ public class Engine {
 
     public Engine() {
 
-        this.entitySet = new HashSet<>();
+        this.entitySet = createEntitySet();
+
+//        Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
+//        player_01.setxPosition(Util.getRandomIntFromRange(1, 10));
+//        player_01.setyPosition(Util.getRandomIntFromRange(1, 10));
+//
+//        Enemy enemy_01 = new Enemy(Status.ENEMY, 50, 33, 25);
+//        enemy_01.setxPosition(Util.getRandomIntFromRange(1, 10));
+//        enemy_01.setyPosition(Util.getRandomIntFromRange(1, 10));
+//
+//        entitySet.add(player_01);
+//        entitySet.add(enemy_01);
+
+        startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
+
+
+//        startBoard.placeCreature(player_01);
+//        startBoard.placeCreature(enemy_01);
+
+    }
+
+    public HashSet<Creature> createEntitySet(){
+        HashSet<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
         player_01.setxPosition(Util.getRandomIntFromRange(1, 10));
@@ -37,13 +59,8 @@ public class Engine {
         entitySet.add(player_01);
         entitySet.add(enemy_01);
 
-        startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
-        startBoard.placeCreature(player_01);
-        startBoard.placeCreature(enemy_01);
-
+        return entitySet;
     }
-
-
 
     public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
 
@@ -115,9 +132,7 @@ public class Engine {
                 case 'r':
                     List<String> listedLevel = mapReader("first_level");
 
-                    Set<Creature> entitySetForScanned = new HashSet<>();
-
-                    Board scannedBoardTileMatrix = new Board(boardFromScan(listedLevel), entitySetForScanned);
+                    Board scannedBoardTileMatrix = new Board(boardFromScan(listedLevel), createEntitySet());
 
                     scannedBoardTileMatrix.printBoard();
 
@@ -136,10 +151,11 @@ public class Engine {
         int yScanDimension = listedLevel.size();
         Tile[][] scannedBoardTileMatrix = new Tile[xScanDimension][yScanDimension];
         for (int i = 0; i < listedLevel.size(); i++) {
-            char[] lineCharArray = listedLevel.get(i).toCharArray();
-            for (int j = 0; j < lineCharArray.length; i++) {
-                if (lineCharArray[j] == 'w') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.WALL);
-                if (lineCharArray[j] == '-') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.EMPTY);
+            //char[] lineCharArray = listedLevel.get(i).toCharArray();
+
+            for (int j = 0; j < listedLevel.get(i).length(); i++) {
+                if (listedLevel.get(i).charAt(j) == 'w') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.WALL);
+                if (listedLevel.get(i).charAt(j) == '-') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.EMPTY);
             }
         }
         return scannedBoardTileMatrix;
