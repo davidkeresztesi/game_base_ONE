@@ -14,6 +14,11 @@ public class Board {
 
     private Set<Creature> entitySet;
 
+    public Board(Tile[][] boardTileMatrix, Set<Creature> entitySet) {
+        this.boardTileMatrix = boardTileMatrix;
+        this.entitySet = entitySet;
+    }
+
     public Board(int xSize, int ySize, Set<Creature> entitySet) {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -68,10 +73,6 @@ public class Board {
             }
             System.out.println();
         }
-    }
-
-    public void boardFromScan(List<String> listedLevel){
-        //makes Board from scanned String list pls
     }
 
     public int getxSize() {

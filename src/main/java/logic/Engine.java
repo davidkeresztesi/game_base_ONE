@@ -2,6 +2,7 @@ package logic;
 
 import model.Board;
 import model.Status;
+import model.Tile;
 import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
@@ -41,6 +42,8 @@ public class Engine {
         startBoard.placeCreature(enemy_01);
 
     }
+
+
 
     public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
 
@@ -111,7 +114,16 @@ public class Engine {
 
                 case 'r':
                     List<String> listedLevel = mapReader("first_level");
-                    for (String line : listedLevel) {
+
+                    Set<Creature> entitySetForScanned = new HashSet<>();
+
+                    Board scannedBoardTileMatrix = new Board(boardFromScan(listedLevel), entitySetForScanned);
+
+                    scannedBoardTileMatrix.printBoard();
+
+                case 't':
+                    List<String> scanTRIAL = mapReader("first_level");
+                    for (String line : scanTRIAL) {
                         System.out.println(line);
                     }
 
@@ -119,8 +131,21 @@ public class Engine {
         }
     }
 
+    public Tile[][] boardFromScan(List<String> listedLevel) {
+        int xScanDimension = listedLevel.get(0).length();
+        int yScanDimension = listedLevel.size();
+        Tile[][] scannedBoardTileMatrix = new Tile[xScanDimension][yScanDimension];
+        for (int i = 0; i < listedLevel.size(); i++) {
+            char[] lineCharArray = listedLevel.get(i).toCharArray();
+            for (int j = 0; j < lineCharArray.length; i++) {
+                if (lineCharArray[j] == 'w') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.WALL);
+                if (lineCharArray[j] == '-') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.EMPTY);
+            }
+        }
+        return scannedBoardTileMatrix;
+    }
 
-    private List<String>  mapReader(String fileName) throws IOException {
+    private List<String> mapReader(String fileName) throws IOException {
         String inPath = DATA_PATH + fileName + TXT;
         List<String> textHolderList = new ArrayList<>();
         try {
