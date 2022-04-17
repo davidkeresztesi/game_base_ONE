@@ -23,29 +23,19 @@ public class Engine {
     private boolean isRunning = true;
 
     public Engine() {
-
         this.entitySet = createEntitySet();
+        this.startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
 
-//        Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
-//        player_01.setxPosition(Util.getRandomIntFromRange(1, 10));
-//        player_01.setyPosition(Util.getRandomIntFromRange(1, 10));
-//
-//        Enemy enemy_01 = new Enemy(Status.ENEMY, 50, 33, 25);
-//        enemy_01.setxPosition(Util.getRandomIntFromRange(1, 10));
-//        enemy_01.setyPosition(Util.getRandomIntFromRange(1, 10));
-//
-//        entitySet.add(player_01);
-//        entitySet.add(enemy_01);
-
-        startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
-
-
-//        startBoard.placeCreature(player_01);
-//        startBoard.placeCreature(enemy_01);
+        putSetOnBoard(startBoard, entitySet);
 
     }
 
-    public HashSet<Creature> createEntitySet(){
+    public void putSetOnBoard(Board board, Set<Creature> creaturesSet){
+        board.placeCreature(creaturesSet.stream().filter(e->e.getCreatureStatus() == Status.PLAYER).findFirst().get());
+        board.placeCreature(creaturesSet.stream().filter(e->e.getCreatureStatus() == Status.ENEMY).findFirst().get());
+    }
+
+    public Set<Creature> createEntitySet(){
         HashSet<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
@@ -149,6 +139,7 @@ public class Engine {
     public Tile[][] boardFromScan(List<String> listedLevel) {
         int xScanDimension = listedLevel.get(0).length();
         int yScanDimension = listedLevel.size();
+
         Tile[][] scannedBoardTileMatrix = new Tile[xScanDimension][yScanDimension];
         for (int i = 0; i < listedLevel.size(); i++) {
             //char[] lineCharArray = listedLevel.get(i).toCharArray();
@@ -190,4 +181,5 @@ public class Engine {
     public Board getStartBoard() {
         return startBoard;
     }
+
 }
