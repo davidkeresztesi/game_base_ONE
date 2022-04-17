@@ -22,12 +22,9 @@ public class Menu {
         int input = scanner.nextInt();
 
         switch (input){
-
             case 1:
                 System.out.println("Loading game");
-
                 startGame();
-
                 break;
 
             case 2:

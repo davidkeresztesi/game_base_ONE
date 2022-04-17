@@ -22,17 +22,28 @@ public class Engine {
 
     private boolean isRunning = true;
 
-    public Engine() {
+    public Engine() throws IOException {
+/////////////////////////////////////////////////////////////
+//        this.entitySet = createEntitySet();
+//        this.startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
+//        putSetOnBoard(startBoard, entitySet);
+/////////////////////////////////////////////////////////////
         this.entitySet = createEntitySet();
-        this.startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
+        this.startBoard = createBoardFromList(mapReader("first_level"), entitySet);
 
         putSetOnBoard(startBoard, entitySet);
 
     }
 
-    public void putSetOnBoard(Board board, Set<Creature> creaturesSet){
-        board.placeCreature(creaturesSet.stream().filter(e->e.getCreatureStatus() == Status.PLAYER).findFirst().get());
-        board.placeCreature(creaturesSet.stream().filter(e->e.getCreatureStatus() == Status.ENEMY).findFirst().get());
+    public Board createBoardFromList(List<String> scanList, Set<Creature> creatureSet){
+        Board board = new Board(scanList.get(0).length(), scanList.size(), creatureSet);
+        board.createScanBoard(scanList);
+        return board;
+    }
+
+    public void putSetOnBoard(Board board, Set<Creature> creatureSet){
+        board.placeCreature(creatureSet.stream().filter(e->e.getCreatureStatus() == Status.PLAYER).findFirst().get());
+        board.placeCreature(creatureSet.stream().filter(e->e.getCreatureStatus() == Status.ENEMY).findFirst().get());
     }
 
     public Set<Creature> createEntitySet(){
@@ -119,14 +130,7 @@ public class Engine {
                     startBoard.printBoard();
                     break;
 
-                case 'r':
-                    List<String> listedLevel = mapReader("first_level");
-
-                    Board scannedBoardTileMatrix = new Board(boardFromScan(listedLevel), createEntitySet());
-
-                    scannedBoardTileMatrix.printBoard();
-
-                case 't':
+                case 'm':
                     List<String> scanTRIAL = mapReader("first_level");
                     for (String line : scanTRIAL) {
                         System.out.println(line);
@@ -134,22 +138,6 @@ public class Engine {
 
             }
         }
-    }
-
-    public Tile[][] boardFromScan(List<String> listedLevel) {
-        int xScanDimension = listedLevel.get(0).length();
-        int yScanDimension = listedLevel.size();
-
-        Tile[][] scannedBoardTileMatrix = new Tile[xScanDimension][yScanDimension];
-        for (int i = 0; i < listedLevel.size(); i++) {
-            //char[] lineCharArray = listedLevel.get(i).toCharArray();
-
-            for (int j = 0; j < listedLevel.get(i).length(); i++) {
-                if (listedLevel.get(i).charAt(j) == 'w') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.WALL);
-                if (listedLevel.get(i).charAt(j) == '-') scannedBoardTileMatrix[i][j] = new Tile(i, j, Status.EMPTY);
-            }
-        }
-        return scannedBoardTileMatrix;
     }
 
     private List<String> mapReader(String fileName) throws IOException {
@@ -168,12 +156,10 @@ public class Engine {
         return textHolderList;
     }
 
-
     private int inputChecker(String input) {
         return input.length();
     }
 
-    //////////////////
     public Set<Creature> getEntitySet() {
         return entitySet;
     }

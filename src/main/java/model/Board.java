@@ -14,11 +14,6 @@ public class Board {
 
     private Set<Creature> entitySet;
 
-    public Board(Tile[][] boardTileMatrix, Set<Creature> entitySet) {
-        this.boardTileMatrix = boardTileMatrix;
-        this.entitySet = entitySet;
-    }
-
     public Board(int xSize, int ySize, Set<Creature> entitySet) {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -31,6 +26,20 @@ public class Board {
         for (Creature creature : entitySet) placeCreature(creature);
 
         printBoard();
+
+    }
+
+    public void createScanBoard(List<String> scanList){
+        for (int i = 0; i < scanList.get(0).length(); i++) {
+            for (int j = 0; j < scanList.size(); j++) {
+                if (scanList.get(j).charAt(i) == '-'){
+                    this.boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
+                }
+                if (scanList.get(j).charAt(i) == 'w'){
+                    this.boardTileMatrix[i][j].setTileStatus(Status.WALL);
+                }
+            }
+        }
 
     }
 
@@ -49,7 +58,8 @@ public class Board {
     public void placeCreature(Creature creature) {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
-                if (i == creature.getxPosition() && j == creature.getyPosition()){
+                if (i == creature.getxPosition() && j == creature.getyPosition()
+                && boardTileMatrix[i][j].getTileStatus() != Status.WALL){
                     boardTileMatrix[i][j].setTileStatus(creature.getCreatureStatus());
                 }
             }
@@ -74,6 +84,7 @@ public class Board {
             System.out.println();
         }
     }
+
 
     public int getxSize() {
         return xSize;
