@@ -1,4 +1,5 @@
 package model;
+
 import model.creature.Creature;
 
 import java.util.List;
@@ -29,13 +30,13 @@ public class Board {
 
     }
 
-    public void createScanBoard(List<String> scanList){
+    public void createScanBoard(List<String> scanList) {
         for (int i = 0; i < scanList.get(0).length(); i++) {
             for (int j = 0; j < scanList.size(); j++) {
-                if (scanList.get(j).charAt(i) == '-'){
+                if (scanList.get(j).charAt(i) == '-') {
                     this.boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
                 }
-                if (scanList.get(j).charAt(i) == 'w'){
+                if (scanList.get(j).charAt(i) == 'w') {
                     this.boardTileMatrix[i][j].setTileStatus(Status.WALL);
                 }
             }
@@ -43,14 +44,14 @@ public class Board {
 
     }
 
-    public void addStepCount(){
+    public void addStepCount() {
         stepCounter++;
     }
 
     public void createBoard() {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
-                boardTileMatrix[i][j] = new Tile(i,j, Status.EMPTY);
+                boardTileMatrix[i][j] = new Tile(i, j, Status.EMPTY);
             }
         }
     }
@@ -59,17 +60,36 @@ public class Board {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
                 if (i == creature.getxPosition() && j == creature.getyPosition()
-                && boardTileMatrix[i][j].getTileStatus() != Status.WALL){
+                        && boardTileMatrix[i][j].getTileStatus() != Status.WALL) {
                     boardTileMatrix[i][j].setTileStatus(creature.getCreatureStatus());
                 }
             }
         }
     }
 
+    public boolean isNextMoveEmpty(Creature creature, char move) {
+        boolean nextTileIsEmpty = true;
+        switch (move) {
+            case 'w':
+                if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()+1].getTileStatus()
+                        == Status.WALL) nextTileIsEmpty = false;
+            case 's':
+                if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()-1].getTileStatus()
+                        == Status.WALL) nextTileIsEmpty = false;
+            case 'a':
+                if(this.boardTileMatrix[creature.getxPosition()-1][creature.getyPosition()].getTileStatus()
+                        == Status.WALL) nextTileIsEmpty = false;
+            case 'd':
+                if(this.boardTileMatrix[creature.getxPosition()+1][creature.getyPosition()].getTileStatus()
+                        == Status.WALL) nextTileIsEmpty = false;
+        }
+        return nextTileIsEmpty;
+    }
+
     public void removeCreature(Creature creature) {
         for (int i = 0; i < boardTileMatrix.length; i++) {
             for (int j = 0; j < boardTileMatrix[i].length; j++) {
-                if (i == creature.getxPosition() && j == creature.getyPosition()){
+                if (i == creature.getxPosition() && j == creature.getyPosition()) {
                     boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
                 }
             }
@@ -85,6 +105,13 @@ public class Board {
         }
     }
 
+    public Tile getTileWithCoordinate(int xCoordinate, int yCoordinate) {
+        return boardTileMatrix[xCoordinate][yCoordinate];
+    }
+
+    public Tile[][] getBoardTileMatrix() {
+        return boardTileMatrix;
+    }
 
     public int getxSize() {
         return xSize;
