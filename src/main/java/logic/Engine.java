@@ -23,16 +23,9 @@ public class Engine {
     private boolean isRunning = true;
 
     public Engine() throws IOException {
-/////////////////////////////////////////////////////////////
-//        this.entitySet = createEntitySet();
-//        this.startBoard = new Board(Util.getStartBoardX(), Util.getStartBoardY(), entitySet);
-//        putSetOnBoard(startBoard, entitySet);
-/////////////////////////////////////////////////////////////
         this.entitySet = createEntitySet();
         this.startBoard = createBoardFromList(mapReader("first_level"), entitySet);
-
         putSetOnBoard(startBoard, entitySet);
-
     }
 
     public Board createBoardFromList(List<String> scanList, Set<Creature> creatureSet){
@@ -64,7 +57,6 @@ public class Engine {
     }
 
     public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
-
         Scanner scanner = new Scanner(System.in);
 
         Creature player = entitySet.stream()
@@ -73,69 +65,38 @@ public class Engine {
                 .orElse(null);
 
         while (isRunning) {
-
-            //coordinate test
-            //system.out.println(player.getxPosition() + "x" + " - " + player.getyPosition() + "y");
-
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Step counter:" + startBoard.getStepCounter());
-
+            startBoard.printBoard();
             String input = scanner.nextLine();
             char command = input.charAt(0);
-
             switch (command) {
-
                 case 'q':
                     isRunning = false;
-
-                case 'p':
-                    System.out.println("this is printed text");
-
                 case 'd':
                     startBoard.removeCreature(player);
                     player.setyPosition(player.getyPosition() + 1);
-
                     startBoard.addStepCount();
-
                     startBoard.placeCreature(player);
-                    startBoard.printBoard();
                     break;
-
                 case 'a':
                     startBoard.removeCreature(player);
                     player.setyPosition(player.getyPosition() - 1);
-
                     startBoard.addStepCount();
-
                     startBoard.placeCreature(player);
-                    startBoard.printBoard();
                     break;
-
                 case 'w':
                     startBoard.removeCreature(player);
                     player.setxPosition(player.getxPosition() - 1);
-
                     startBoard.addStepCount();
-
                     startBoard.placeCreature(player);
-                    startBoard.printBoard();
                     break;
-
                 case 's':
                     startBoard.removeCreature(player);
                     player.setxPosition(player.getxPosition() + 1);
-
                     startBoard.addStepCount();
-
                     startBoard.placeCreature(player);
-                    startBoard.printBoard();
                     break;
-
-                case 'm':
-                    List<String> scanTRIAL = mapReader("first_level");
-                    for (String line : scanTRIAL) {
-                        System.out.println(line);
-                    }
-
             }
         }
     }
