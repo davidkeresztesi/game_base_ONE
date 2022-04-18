@@ -1,4 +1,4 @@
-package logic;
+package ui;
 
 import java.util.concurrent.ThreadLocalRandom;
 

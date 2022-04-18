@@ -1,14 +1,11 @@
 package ui;
 
 import logic.Engine;
-import logic.Util;
-
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    Util util = new Util();
 
     public void mainMenu() throws IOException {
 

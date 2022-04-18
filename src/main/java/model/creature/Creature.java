@@ -1,8 +1,6 @@
 package model.creature;
 
-import model.Board;
 import model.Status;
-import model.Tile;
 
 public abstract class Creature {
 

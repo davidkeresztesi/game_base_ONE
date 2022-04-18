@@ -5,6 +5,7 @@ import model.Status;
 import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
+import ui.Util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -72,32 +73,36 @@ public class Engine {
             switch (command) {
                 case 'q':
                     isRunning = false;
-                case 'd':
-                    if (startBoard.isNextMoveEmpty(player, 'd')) {
+
+                case 'w':
+                    if (startBoard.isNextMoveEmpty(player, 'w')) {
                         startBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() + 1);
                         startBoard.addStepCount();
                         startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
-                case 'a':
-                    if (startBoard.isNextMoveEmpty(player, 'a')) {
+
+                case 's':
+                    if (startBoard.isNextMoveEmpty(player, 's')) {
                         startBoard.removeCreature(player);
-                        player.setyPosition(player.getyPosition() - 1);
+                        player.setyPosition(player.getyPosition() -1);
                         startBoard.addStepCount();
                         startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
-                case 'w':
-                    if (startBoard.isNextMoveEmpty(player, 'w')) {
+
+                case 'a':
+                    if (startBoard.isNextMoveEmpty(player, 'a')) {
                         startBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() - 1);
                         startBoard.addStepCount();
                         startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
-                case 's':
-                    if (startBoard.isNextMoveEmpty(player, 's')) {
+
+                case 'd':
+                    if (startBoard.isNextMoveEmpty(player, 'd')) {
                         startBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() + 1);
                         startBoard.addStepCount();
