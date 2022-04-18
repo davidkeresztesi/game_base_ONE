@@ -2,7 +2,6 @@ package logic;
 
 import model.Board;
 import model.Status;
-import model.Tile;
 import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
@@ -28,18 +27,18 @@ public class Engine {
         putSetOnBoard(startBoard, entitySet);
     }
 
-    public Board createBoardFromList(List<String> scanList, Set<Creature> creatureSet){
+    public Board createBoardFromList(List<String> scanList, Set<Creature> creatureSet) {
         Board board = new Board(scanList.get(0).length(), scanList.size(), creatureSet);
         board.createScanBoard(scanList);
         return board;
     }
 
-    public void putSetOnBoard(Board board, Set<Creature> creatureSet){
-        board.placeCreature(creatureSet.stream().filter(e->e.getCreatureStatus() == Status.PLAYER).findFirst().get());
-        board.placeCreature(creatureSet.stream().filter(e->e.getCreatureStatus() == Status.ENEMY).findFirst().get());
+    public void putSetOnBoard(Board board, Set<Creature> creatureSet) {
+        board.placeCreature(creatureSet.stream().filter(e -> e.getCreatureStatus() == Status.PLAYER).findFirst().get());
+        board.placeCreature(creatureSet.stream().filter(e -> e.getCreatureStatus() == Status.ENEMY).findFirst().get());
     }
 
-    public Set<Creature> createEntitySet(){
+    public Set<Creature> createEntitySet() {
         HashSet<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
@@ -74,28 +73,36 @@ public class Engine {
                 case 'q':
                     isRunning = false;
                 case 'd':
-                    startBoard.removeCreature(player);
-                    player.setyPosition(player.getyPosition() + 1);
-                    startBoard.addStepCount();
-                    startBoard.placeCreature(player);
+                    if (startBoard.isNextMoveEmpty(player, 'd')) {
+                        startBoard.removeCreature(player);
+                        player.setyPosition(player.getyPosition() + 1);
+                        startBoard.addStepCount();
+                        startBoard.placeCreature(player);
+                    } else System.out.println("you can not move through walls pls");
                     break;
                 case 'a':
-                    startBoard.removeCreature(player);
-                    player.setyPosition(player.getyPosition() - 1);
-                    startBoard.addStepCount();
-                    startBoard.placeCreature(player);
+                    if (startBoard.isNextMoveEmpty(player, 'a')) {
+                        startBoard.removeCreature(player);
+                        player.setyPosition(player.getyPosition() - 1);
+                        startBoard.addStepCount();
+                        startBoard.placeCreature(player);
+                    } else System.out.println("you can not move through walls pls");
                     break;
                 case 'w':
-                    startBoard.removeCreature(player);
-                    player.setxPosition(player.getxPosition() - 1);
-                    startBoard.addStepCount();
-                    startBoard.placeCreature(player);
+                    if (startBoard.isNextMoveEmpty(player, 'w')) {
+                        startBoard.removeCreature(player);
+                        player.setxPosition(player.getxPosition() - 1);
+                        startBoard.addStepCount();
+                        startBoard.placeCreature(player);
+                    } else System.out.println("you can not move through walls pls");
                     break;
                 case 's':
-                    startBoard.removeCreature(player);
-                    player.setxPosition(player.getxPosition() + 1);
-                    startBoard.addStepCount();
-                    startBoard.placeCreature(player);
+                    if (startBoard.isNextMoveEmpty(player, 's')) {
+                        startBoard.removeCreature(player);
+                        player.setxPosition(player.getxPosition() + 1);
+                        startBoard.addStepCount();
+                        startBoard.placeCreature(player);
+                    } else System.out.println("you can not move through walls pls");
                     break;
             }
         }
