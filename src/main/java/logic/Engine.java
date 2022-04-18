@@ -119,16 +119,21 @@ public class Engine {
         }
     }
 
+
+    //https://www.youtube.com/watch?v=rWzINXeC0lY
+
     private List<String> mapReader(String fileName) {
         String inPath = DATA_PATH + fileName + TXT;
         List<String> textHolderList = new ArrayList<>();
         try {
+
             BufferedReader reader = new BufferedReader(new FileReader(inPath));
             String line;
             while ((line = reader.readLine()) != null) {
                 textHolderList.add(line);
             }
             reader.close();
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
