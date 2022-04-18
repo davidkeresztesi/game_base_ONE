@@ -1,7 +1,12 @@
 package model;
 
+import logic.Engine;
 import model.creature.Creature;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,14 +30,27 @@ public class Board {
         createBoard();
 
         for (Creature creature : entitySet) placeCreature(creature);
+    }
 
-        printBoard();
-
+    private List<String> mapReader(String fileName) {
+        String inPath = Engine.DATA_PATH + fileName + Engine.TXT;
+        List<String> textHolderList = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inPath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                textHolderList.add(line);
+            }
+            reader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return textHolderList;
     }
 
     public void createScanBoard(List<String> scanList) {
-        for (int i = 0; i < scanList.get(0).length(); i++) {
-            for (int j = 0; j < scanList.size(); j++) {
+        for (int i = 0; i < this.xSize; i++) {
+            for (int j = 0; j < this.ySize; j++) {
                 if (scanList.get(j).charAt(i) == '-') {
                     this.boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
                 }
@@ -41,7 +59,6 @@ public class Board {
                 }
             }
         }
-
     }
 
     public void addStepCount() {
@@ -68,20 +85,20 @@ public class Board {
     }
 
     public boolean isNextMoveEmpty(Creature creature, char move) {
-        boolean nextTileIsEmpty = true;
+        boolean nextTileIsEmpty = false;
         switch (move) {
             case 'w':
                 if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()+1].getTileStatus()
-                        == Status.WALL) nextTileIsEmpty = false;
+                        == Status.EMPTY) nextTileIsEmpty = true;
             case 's':
                 if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()-1].getTileStatus()
-                        == Status.WALL) nextTileIsEmpty = false;
+                        == Status.EMPTY) nextTileIsEmpty = true;
             case 'a':
                 if(this.boardTileMatrix[creature.getxPosition()-1][creature.getyPosition()].getTileStatus()
-                        == Status.WALL) nextTileIsEmpty = false;
+                        == Status.EMPTY) nextTileIsEmpty = true;
             case 'd':
                 if(this.boardTileMatrix[creature.getxPosition()+1][creature.getyPosition()].getTileStatus()
-                        == Status.WALL) nextTileIsEmpty = false;
+                        == Status.EMPTY) nextTileIsEmpty = true;
         }
         return nextTileIsEmpty;
     }
@@ -136,4 +153,5 @@ public class Board {
     public void setStepCounter(int stepCounter) {
         this.stepCounter = stepCounter;
     }
+
 }

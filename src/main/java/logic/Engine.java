@@ -22,9 +22,10 @@ public class Engine {
 
     private boolean isRunning = true;
 
-    public Engine() throws IOException {
+    public Engine() {
         this.entitySet = createEntitySet();
         this.startBoard = createBoardFromList(mapReader("first_level"), entitySet);
+
         putSetOnBoard(startBoard, entitySet);
     }
 
@@ -56,7 +57,7 @@ public class Engine {
         return entitySet;
     }
 
-    public void runGame(Set<Creature> entitySet, Board startBoard) throws IOException {
+    public void runGame(Set<Creature> entitySet, Board startBoard) {
         Scanner scanner = new Scanner(System.in);
 
         Creature player = entitySet.stream()
@@ -67,53 +68,58 @@ public class Engine {
         while (isRunning) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Step counter:" + startBoard.getStepCounter());
-            startBoard.printBoard();
+            this.startBoard.printBoard();
             String input = scanner.nextLine();
             char command = input.charAt(0);
             switch (command) {
                 case 'q':
                     isRunning = false;
 
+                case 'p':
+                    System.out.println(this.startBoard.getxSize());
+                    System.out.println(this.startBoard.getySize());
+                    break;
+
                 case 'w':
-                    if (startBoard.isNextMoveEmpty(player, 'w')) {
-                        startBoard.removeCreature(player);
+                    if (this.startBoard.isNextMoveEmpty(player, 'w')) {
+                        this.startBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() + 1);
-                        startBoard.addStepCount();
-                        startBoard.placeCreature(player);
+                        this.startBoard.addStepCount();
+                        this.startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 's':
-                    if (startBoard.isNextMoveEmpty(player, 's')) {
-                        startBoard.removeCreature(player);
+                    if (this.startBoard.isNextMoveEmpty(player, 's')) {
+                        this.startBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() -1);
-                        startBoard.addStepCount();
-                        startBoard.placeCreature(player);
+                        this.startBoard.addStepCount();
+                        this.startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 'a':
-                    if (startBoard.isNextMoveEmpty(player, 'a')) {
-                        startBoard.removeCreature(player);
+                    if (this.startBoard.isNextMoveEmpty(player, 'a')) {
+                        this.startBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() - 1);
-                        startBoard.addStepCount();
-                        startBoard.placeCreature(player);
+                        this.startBoard.addStepCount();
+                        this.startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 'd':
-                    if (startBoard.isNextMoveEmpty(player, 'd')) {
-                        startBoard.removeCreature(player);
+                    if (this.startBoard.isNextMoveEmpty(player, 'd')) {
+                        this.startBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() + 1);
-                        startBoard.addStepCount();
-                        startBoard.placeCreature(player);
+                        this.startBoard.addStepCount();
+                        this.startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
             }
         }
     }
 
-    private List<String> mapReader(String fileName) throws IOException {
+    private List<String> mapReader(String fileName) {
         String inPath = DATA_PATH + fileName + TXT;
         List<String> textHolderList = new ArrayList<>();
         try {
@@ -127,10 +133,6 @@ public class Engine {
             ex.printStackTrace();
         }
         return textHolderList;
-    }
-
-    private int inputChecker(String input) {
-        return input.length();
     }
 
     public Set<Creature> getEntitySet() {
