@@ -2,6 +2,7 @@ package logic;
 
 import model.Board;
 import model.Status;
+import model.Tile;
 import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
@@ -92,7 +93,7 @@ public class Engine {
                 case 's':
                     if (this.startBoard.isNextMoveEmpty(player, 's')) {
                         this.startBoard.removeCreature(player);
-                        player.setyPosition(player.getyPosition() -1);
+                        player.setyPosition(player.getyPosition() - 1);
                         this.startBoard.addStepCount();
                         this.startBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
@@ -119,8 +120,46 @@ public class Engine {
         }
     }
 
+//    private Board mapReader_two(String filename) {
+//        //https://www.youtube.com/watch?v=rWzINXeC0lY
+//        Board board = null;
+//        ArrayList<ArrayList<Character>> tempBoard = new ArrayList<>();
+//
+//        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+//            String currentLine;
+//            while ((currentLine = br.readLine()) != null){
+//                if (currentLine.isEmpty()) continue;
+//                ArrayList<Character> row = new ArrayList<>();
+//                String[] values = currentLine.trim().split("");
+//                for (String string: values) {
+//                    if (!string.isEmpty()) {
+//                        char id = string.charAt(0);
+//                        row.add(id);
+//                    }
+//                }
+//                tempBoard.add(row);
+//            }
+//        } catch (IOException ex) {
+//
+//        }
+//
+//        int width = tempBoard.get(0).size();
+//        int height = tempBoard.size();
+//
+//        board = new Board(width, height);
+//
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                board.Tile[y][x] = tempBoard.get(y).get(x);
+//            }
+//        }
+//
+//        ///layer.tileSheet = layer.LoadTileSheet(---some jpeg----)
+//
+//        return board;
+//    }
 
-    //https://www.youtube.com/watch?v=rWzINXeC0lY
+
 
     private List<String> mapReader(String fileName) {
         String inPath = DATA_PATH + fileName + TXT;

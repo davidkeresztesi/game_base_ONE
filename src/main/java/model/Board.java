@@ -32,6 +32,10 @@ public class Board {
         for (Creature creature : entitySet) placeCreature(creature);
     }
 
+//    public Board(int width, int height){
+//        ///map = new int[height][width];
+//    }
+
     private List<String> mapReader(String fileName) {
         String inPath = Engine.DATA_PATH + fileName + Engine.TXT;
         List<String> textHolderList = new ArrayList<>();
