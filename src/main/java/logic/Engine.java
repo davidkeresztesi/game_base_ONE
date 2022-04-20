@@ -120,39 +120,6 @@ public class Engine {
         }
     }
 
-//    private Board mapReader_two(String filename) {
-//        Board board = null;
-//        ArrayList<ArrayList<Character>> tempBoard = new ArrayList<>();
-//        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-//            String currentLine;
-//            while ((currentLine = br.readLine()) != null){
-//                if (currentLine.isEmpty()) continue;
-//                ArrayList<Character> row = new ArrayList<>();
-//                String[] values = currentLine.trim().split("");
-//                for (String string: values) {
-//                    if (!string.isEmpty()) {
-//                        char id = string.charAt(0);
-//                        row.add(id);
-//                    }
-//                }
-//                tempBoard.add(row);
-//            }
-//        } catch (IOException ex){
-//
-//        }
-//        int width = tempBoard.get(0).size();
-//        int height = tempBoard.size();
-//
-//        board = new Board(width, height);
-//
-//        for (int y = 0; y < height; y++) {
-//            for (int x = 0; x < width; x++) {
-//                board.Tile[y][x] = tempBoard.get(y).get(x);
-//            }
-//        }
-//        return board;
-//    }
-
     private List<String> mapReader(String fileName) {
         String inPath = DATA_PATH + fileName + TXT;
         List<String> textHolderList = new ArrayList<>();
