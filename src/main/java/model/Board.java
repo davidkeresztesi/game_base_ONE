@@ -32,34 +32,14 @@ public class Board {
         for (Creature creature : entitySet) placeCreature(creature);
     }
 
-//    public Board(int width, int height){
-//        ///map = new int[height][width];
-//    }
-
-    private List<String> mapReader(String fileName) {
-        String inPath = Engine.DATA_PATH + fileName + Engine.TXT;
-        List<String> textHolderList = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(inPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                textHolderList.add(line);
-            }
-            reader.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return textHolderList;
-    }
-
     public void createScanBoard(List<String> scanList) {
-        for (int i = 0; i < this.xSize; i++) {
-            for (int j = 0; j < this.ySize; j++) {
-                if (scanList.get(j).charAt(i) == '-') {
-                    this.boardTileMatrix[i][j].setTileStatus(Status.EMPTY);
+        for (int y = 0; y < scanList.size(); y++) {
+            for (int x = 0; x < scanList.get(0).length(); x++) {
+                if (scanList.get(y).charAt(x) == '-') {
+                    this.boardTileMatrix[y][x].setTileStatus(Status.EMPTY);
                 }
-                if (scanList.get(j).charAt(i) == 'w') {
-                    this.boardTileMatrix[i][j].setTileStatus(Status.WALL);
+                if (scanList.get(y).charAt(x) == 'w') {
+                    this.boardTileMatrix[y][x].setTileStatus(Status.WALL);
                 }
             }
         }
