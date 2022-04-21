@@ -2,38 +2,27 @@ package logic;
 
 import model.Board;
 import model.Status;
-import model.Tile;
 import model.creature.Creature;
 import model.creature.Enemy;
 import model.creature.Player;
 import ui.Util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Engine {
 
-    public static final String DATA_PATH = "src/main/resources/maps/";
-    public static final String TXT = ".txt";
-
-    private Board startBoard;
+    private Board runBoard;
     private Set<Creature> entitySet;
 
     private boolean isRunning = true;
 
-    public Engine() {
-        this.entitySet = createEntitySet();
-        this.startBoard = createBoardFromList(mapReader("first_level"), entitySet);
+    public Engine(Board board, Set<Creature> creatureSet) {
+        this.runBoard = board;
+        this.entitySet = creatureSet;
 
-        putSetOnBoard(startBoard, entitySet);
-    }
-
-    public Board createBoardFromList(List<String> scanList, Set<Creature> creatureSet) {
-        Board board = new Board(scanList.get(0).length(), scanList.size(), creatureSet);
-        board.createScanBoard(scanList);
-        return board;
+        putSetOnBoard(runBoard, entitySet);
     }
 
     public void putSetOnBoard(Board board, Set<Creature> creatureSet) {
@@ -41,7 +30,7 @@ public class Engine {
         board.placeCreature(creatureSet.stream().filter(e -> e.getCreatureStatus() == Status.ENEMY).findFirst().get());
     }
 
-    public Set<Creature> createEntitySet() {
+    static public Set<Creature> createEntitySet() {
         HashSet<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
@@ -69,7 +58,7 @@ public class Engine {
         while (isRunning) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Step counter:" + startBoard.getStepCounter());
-            this.startBoard.printBoard();
+            this.runBoard.printBoard();
             String input = scanner.nextLine();
             char command = input.charAt(0);
             switch (command) {
@@ -77,71 +66,57 @@ public class Engine {
                     isRunning = false;
 
                 case 'p':
-                    System.out.println(this.startBoard.getxSize());
-                    System.out.println(this.startBoard.getySize());
+                    System.out.println(this.runBoard.getxSize());
+                    System.out.println(this.runBoard.getySize());
                     break;
 
                 case 'w':
-                    if (this.startBoard.isNextMoveEmpty(player, 'w')) {
-                        this.startBoard.removeCreature(player);
+                    if (this.runBoard.isNextMoveEmpty(player, 'w')) {
+                        this.runBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() + 1);
-                        this.startBoard.addStepCount();
-                        this.startBoard.placeCreature(player);
+                        this.runBoard.addStepCount();
+                        this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 's':
-                    if (this.startBoard.isNextMoveEmpty(player, 's')) {
-                        this.startBoard.removeCreature(player);
+                    if (this.runBoard.isNextMoveEmpty(player, 's')) {
+                        this.runBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() - 1);
-                        this.startBoard.addStepCount();
-                        this.startBoard.placeCreature(player);
+                        this.runBoard.addStepCount();
+                        this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 'a':
-                    if (this.startBoard.isNextMoveEmpty(player, 'a')) {
-                        this.startBoard.removeCreature(player);
+                    if (this.runBoard.isNextMoveEmpty(player, 'a')) {
+                        this.runBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() - 1);
-                        this.startBoard.addStepCount();
-                        this.startBoard.placeCreature(player);
+                        this.runBoard.addStepCount();
+                        this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
 
                 case 'd':
-                    if (this.startBoard.isNextMoveEmpty(player, 'd')) {
-                        this.startBoard.removeCreature(player);
+                    if (this.runBoard.isNextMoveEmpty(player, 'd')) {
+                        this.runBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() + 1);
-                        this.startBoard.addStepCount();
-                        this.startBoard.placeCreature(player);
+                        this.runBoard.addStepCount();
+                        this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
                     break;
             }
         }
     }
 
-    private List<String> mapReader(String fileName) {
-        String inPath = DATA_PATH + fileName + TXT;
-        List<String> textHolderList = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(inPath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                textHolderList.add(line);
-            }
-            reader.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return textHolderList;
-    }
+    ////////////////////////get-set
 
     public Set<Creature> getEntitySet() {
         return entitySet;
     }
 
     public Board getStartBoard() {
-        return startBoard;
+        return runBoard;
     }
 
 }

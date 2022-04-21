@@ -2,6 +2,7 @@ package model;
 
 import logic.Engine;
 import model.creature.Creature;
+import ui.Util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,29 +21,46 @@ public class Board {
 
     private Set<Creature> entitySet;
 
-    public Board(int xSize, int ySize, Set<Creature> entitySet) {
-        this.xSize = xSize;
-        this.ySize = ySize;
-        this.boardTileMatrix = new Tile[xSize][ySize];
+    public Board(String filename, Set<Creature> entitySet){
+        List<String> currentRead = mapReader(filename);
+
+        this.ySize = currentRead.size();
+        this.xSize = currentRead.get(0).length();
+        this.boardTileMatrix = new Tile[ySize][xSize];
         this.entitySet = entitySet;
         this.stepCounter = 0;
 
-        createBoard();
+        createTiles();
+        fillTilesFromList(currentRead);
 
         for (Creature creature : entitySet) placeCreature(creature);
     }
 
-    //? replace createBoard() pls w listed map
+    static private List<String> mapReader(String fileName) {
+        String inPath = Util.DATA_PATH + fileName + Util.TXT;
+        List<String> textHolderList = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inPath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                textHolderList.add(line);
+            }
+            reader.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return textHolderList;
+    }
 
-    public void createBoard() {
-        for (int y = 0; y < boardTileMatrix.length; y++) {
-            for (int x = 0; x < boardTileMatrix[y].length; x++) {
+    public void createTiles() {
+        for (int y = 0; y < this.ySize; y++) {
+            for (int x = 0; x < this.xSize; x++) {
                 boardTileMatrix[y][x] = new Tile(y, x, Status.EMPTY);
             }
         }
     }
 
-    public void createScanBoard(List<String> scanList) {
+    public void fillTilesFromList(List<String> scanList) {
         for (int y = 0; y < scanList.size(); y++) {
             for (int x = 0; x < scanList.get(0).length(); x++) {
                 if (scanList.get(y).charAt(x) == '-') {
@@ -108,13 +126,7 @@ public class Board {
         stepCounter++;
     }
 
-    public Tile getTileWithCoordinate(int xCoordinate, int yCoordinate) {
-        return boardTileMatrix[xCoordinate][yCoordinate];
-    }
-
-    public Tile[][] getBoardTileMatrix() {
-        return boardTileMatrix;
-    }
+    ////////////////////////get-set
 
     public int getxSize() {
         return xSize;

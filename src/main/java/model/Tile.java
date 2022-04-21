@@ -7,9 +7,9 @@ public class Tile {
 
     Status tileStatus;
 
-    public Tile(int xCoordinate, int yCoordinate, Status tileStatus) {
-        this.xCoordinate = xCoordinate;
+    public Tile(int yCoordinate, int xCoordinate, Status tileStatus) {
         this.yCoordinate = yCoordinate;
+        this.xCoordinate = xCoordinate;
         this.tileStatus = tileStatus;
     }
 

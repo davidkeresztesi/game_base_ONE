@@ -1,8 +1,12 @@
 package ui;
 
 import logic.Engine;
+import model.Board;
+import model.creature.Creature;
+
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
@@ -26,7 +30,10 @@ public class Menu {
     }
 
     private void startGame() throws IOException {
-        Engine engine = new Engine();
+        Board firstBoard = new Board("first_level", Engine.createEntitySet());
+        Set<Creature> creatureSet = Engine.createEntitySet();
+        Engine engine = new Engine(firstBoard, creatureSet);
+
         engine.runGame(engine.getEntitySet(), engine.getStartBoard());
     }
 
