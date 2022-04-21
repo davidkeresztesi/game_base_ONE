@@ -73,7 +73,7 @@ public class Engine {
                 case 'w':
                     if (this.runBoard.isNextMoveEmpty(player, 'w')) {
                         this.runBoard.removeCreature(player);
-                        player.setyPosition(player.getyPosition() + 1);
+                        player.setxPosition(player.getxPosition() - 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
@@ -82,7 +82,7 @@ public class Engine {
                 case 's':
                     if (this.runBoard.isNextMoveEmpty(player, 's')) {
                         this.runBoard.removeCreature(player);
-                        player.setyPosition(player.getyPosition() - 1);
+                        player.setxPosition(player.getxPosition() + 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
@@ -91,7 +91,7 @@ public class Engine {
                 case 'a':
                     if (this.runBoard.isNextMoveEmpty(player, 'a')) {
                         this.runBoard.removeCreature(player);
-                        player.setxPosition(player.getxPosition() - 1);
+                        player.setyPosition(player.getyPosition() - 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");
@@ -100,7 +100,7 @@ public class Engine {
                 case 'd':
                     if (this.runBoard.isNextMoveEmpty(player, 'd')) {
                         this.runBoard.removeCreature(player);
-                        player.setxPosition(player.getxPosition() + 1);
+                        player.setyPosition(player.getyPosition() + 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
                     } else System.out.println("you can not move through walls pls");

@@ -74,9 +74,9 @@ public class Board {
     }
 
     public void printBoard() {
-        for (int y = 0; y < boardTileMatrix.length; y++) {
-            for (int x = 0; x < boardTileMatrix[y].length; x++) {
-                System.out.print(boardTileMatrix[y][x].getTileStatus().getDisplayChar());
+        for (Tile[] tileMatrix : boardTileMatrix) {
+            for (Tile matrix : tileMatrix) {
+                System.out.print(matrix.getTileStatus().getDisplayChar());
             }
             System.out.println();
         }
@@ -107,16 +107,16 @@ public class Board {
         boolean nextTileIsEmpty = false;
         switch (move) {
             case 'w':
-                if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()+1].getTileStatus()
+                if(this.boardTileMatrix[creature.getyPosition()-1][creature.getxPosition()].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 's':
-                if(this.boardTileMatrix[creature.getxPosition()][creature.getyPosition()-1].getTileStatus()
+                if(this.boardTileMatrix[creature.getyPosition()+1][creature.getxPosition()].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 'a':
-                if(this.boardTileMatrix[creature.getxPosition()-1][creature.getyPosition()].getTileStatus()
+                if(this.boardTileMatrix[creature.getyPosition()][creature.getxPosition()-1].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 'd':
-                if(this.boardTileMatrix[creature.getxPosition()+1][creature.getyPosition()].getTileStatus()
+                if(this.boardTileMatrix[creature.getyPosition()][creature.getxPosition()+1].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
         }
         return nextTileIsEmpty;
