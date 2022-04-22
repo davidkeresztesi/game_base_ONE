@@ -20,6 +20,8 @@ public abstract class Creature {
         this.staminaPlayer_01 = staminaPlayer_01;
     }
 
+    /////////////////////////////GET-SET
+
     public Status getCreatureStatus() {
         return creatureStatus;
     }

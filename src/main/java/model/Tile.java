@@ -13,6 +13,8 @@ public class Tile {
         this.tileStatus = tileStatus;
     }
 
+    /////////////////////////////GET-SET
+
     public int getxCoordinate() {
         return xCoordinate;
     }

@@ -16,18 +16,13 @@ public class Engine {
     private Board runBoard;
     private Set<Creature> entitySet;
 
+    private Player player;
+
     private boolean isRunning = true;
 
     public Engine(Board board, Set<Creature> creatureSet) {
         this.runBoard = board;
         this.entitySet = creatureSet;
-
-        putSetOnBoard(runBoard, entitySet);
-    }
-
-    public void putSetOnBoard(Board board, Set<Creature> creatureSet) {
-        board.placeCreature(creatureSet.stream().filter(e -> e.getCreatureStatus() == Status.PLAYER).findFirst().get());
-        board.placeCreature(creatureSet.stream().filter(e -> e.getCreatureStatus() == Status.ENEMY).findFirst().get());
     }
 
     static public Set<Creature> createEntitySet() {
@@ -49,6 +44,8 @@ public class Engine {
 
     public void runGame(Set<Creature> entitySet, Board startBoard) {
         Scanner scanner = new Scanner(System.in);
+
+        runBoard.putSetOnBoard(this.entitySet);
 
         Creature player = entitySet.stream()
                 .filter(creature -> creature.getCreatureStatus() == Status.PLAYER)
@@ -76,7 +73,7 @@ public class Engine {
                         player.setxPosition(player.getxPosition() - 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
-                    } else System.out.println("you can not move through walls pls");
+                    } else System.out.println("move blocked");
                     break;
 
                 case 's':
@@ -85,7 +82,7 @@ public class Engine {
                         player.setxPosition(player.getxPosition() + 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
-                    } else System.out.println("you can not move through walls pls");
+                    } else System.out.println("move blocked");
                     break;
 
                 case 'a':
@@ -94,7 +91,7 @@ public class Engine {
                         player.setyPosition(player.getyPosition() - 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
-                    } else System.out.println("you can not move through walls pls");
+                    } else System.out.println("move blocked");
                     break;
 
                 case 'd':
@@ -103,13 +100,13 @@ public class Engine {
                         player.setyPosition(player.getyPosition() + 1);
                         this.runBoard.addStepCount();
                         this.runBoard.placeCreature(player);
-                    } else System.out.println("you can not move through walls pls");
+                    } else System.out.println("move blocked");
                     break;
             }
         }
     }
 
-    ////////////////////////get-set
+    /////////////////////////////GET-SET
 
     public Set<Creature> getEntitySet() {
         return entitySet;

@@ -1,6 +1,5 @@
 package model;
 
-import logic.Engine;
 import model.creature.Creature;
 import ui.Util;
 
@@ -21,7 +20,7 @@ public class Board {
 
     private Set<Creature> entitySet;
 
-    public Board(String filename, Set<Creature> entitySet){
+    public Board(String filename, Set<Creature> entitySet) {
         List<String> currentRead = mapReader(filename);
 
         this.ySize = currentRead.size();
@@ -32,9 +31,9 @@ public class Board {
 
         createTiles();
         fillTilesFromList(currentRead);
-
-        for (Creature creature : entitySet) placeCreature(creature);
     }
+
+    /////////////////////////////MAP
 
     static private List<String> mapReader(String fileName) {
         String inPath = Util.DATA_PATH + fileName + Util.TXT;
@@ -82,11 +81,23 @@ public class Board {
         }
     }
 
+    public void putSetOnBoard(Set<Creature> creatureSet) {
+        this.placeCreature(creatureSet.stream()
+                .filter(e -> e.getCreatureStatus() == Status.PLAYER)
+                .findFirst().get());
+        this.placeCreature(creatureSet.stream()
+                .filter(e -> e.getCreatureStatus() == Status.ENEMY)
+                .findFirst().get());
+    }
+
+    /////////////////////////////MOVE
+
     public void placeCreature(Creature creature) {
         for (int y = 0; y < boardTileMatrix.length; y++) {
             for (int x = 0; x < boardTileMatrix[y].length; x++) {
-                if (y == creature.getxPosition() && x == creature.getyPosition()
-                        && boardTileMatrix[y][x].getTileStatus() != Status.WALL) {
+                if (y == creature.getxPosition()
+                        && x == creature.getyPosition()
+                        && boardTileMatrix[y][x].getTileStatus() == Status.EMPTY) {
                     boardTileMatrix[y][x].setTileStatus(creature.getCreatureStatus());
                 }
             }
@@ -107,16 +118,16 @@ public class Board {
         boolean nextTileIsEmpty = false;
         switch (move) {
             case 'w':
-                if(this.boardTileMatrix[creature.getyPosition()-1][creature.getxPosition()].getTileStatus()
+                if (this.boardTileMatrix[creature.getyPosition() - 1][creature.getxPosition()].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 's':
-                if(this.boardTileMatrix[creature.getyPosition()+1][creature.getxPosition()].getTileStatus()
+                if (this.boardTileMatrix[creature.getyPosition() + 1][creature.getxPosition()].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 'a':
-                if(this.boardTileMatrix[creature.getyPosition()][creature.getxPosition()-1].getTileStatus()
+                if (this.boardTileMatrix[creature.getyPosition()][creature.getxPosition() - 1].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
             case 'd':
-                if(this.boardTileMatrix[creature.getyPosition()][creature.getxPosition()+1].getTileStatus()
+                if (this.boardTileMatrix[creature.getyPosition()][creature.getxPosition() + 1].getTileStatus()
                         == Status.EMPTY) nextTileIsEmpty = true;
         }
         return nextTileIsEmpty;
@@ -126,7 +137,7 @@ public class Board {
         stepCounter++;
     }
 
-    ////////////////////////get-set
+    /////////////////////////////GET-SET
 
     public int getxSize() {
         return xSize;
