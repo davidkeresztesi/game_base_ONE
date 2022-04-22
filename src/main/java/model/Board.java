@@ -114,24 +114,43 @@ public class Board {
         }
     }
 
-    public boolean isNextMoveEmpty(Creature creature, char move) {
-        boolean nextTileIsEmpty = false;
+    public boolean isNextTileEmpty(Creature creature, char move) {
+        boolean isEmpty = false;
+        int xPosCurrent = creature.getxPosition();
+        int yPosCurrent = creature.getyPosition();
+
         switch (move) {
             case 'w':
-                if (this.boardTileMatrix[creature.getyPosition() - 1][creature.getxPosition()].getTileStatus()
-                        == Status.EMPTY) nextTileIsEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent-1][yPosCurrent]
+                        .getTileStatus() == Status.EMPTY) {
+                    isEmpty = true;
+                }
+                break;
+
             case 's':
-                if (this.boardTileMatrix[creature.getyPosition() + 1][creature.getxPosition()].getTileStatus()
-                        == Status.EMPTY) nextTileIsEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent+1][yPosCurrent]
+                        .getTileStatus() == Status.EMPTY) {
+                    isEmpty = true;
+                }
+                break;
+
             case 'a':
-                if (this.boardTileMatrix[creature.getyPosition()][creature.getxPosition() - 1].getTileStatus()
-                        == Status.EMPTY) nextTileIsEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent][yPosCurrent-1]
+                        .getTileStatus() == Status.EMPTY) {
+                    isEmpty = true;
+                }
+                break;
+
             case 'd':
-                if (this.boardTileMatrix[creature.getyPosition()][creature.getxPosition() + 1].getTileStatus()
-                        == Status.EMPTY) nextTileIsEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent][yPosCurrent+1]
+                        .getTileStatus() == Status.EMPTY) {
+                    isEmpty = true;
+                }
+                break;
         }
-        return nextTileIsEmpty;
+        return isEmpty;
     }
+
 
     public void addStepCount() {
         stepCounter++;

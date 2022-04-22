@@ -68,7 +68,7 @@ public class Engine {
                     break;
 
                 case 'w':
-                    if (this.runBoard.isNextMoveEmpty(player, 'w')) {
+                    if (this.runBoard.isNextTileEmpty(player, 'w')) {
                         this.runBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() - 1);
                         this.runBoard.addStepCount();
@@ -77,7 +77,7 @@ public class Engine {
                     break;
 
                 case 's':
-                    if (this.runBoard.isNextMoveEmpty(player, 's')) {
+                    if (this.runBoard.isNextTileEmpty(player, 's')) {
                         this.runBoard.removeCreature(player);
                         player.setxPosition(player.getxPosition() + 1);
                         this.runBoard.addStepCount();
@@ -86,7 +86,7 @@ public class Engine {
                     break;
 
                 case 'a':
-                    if (this.runBoard.isNextMoveEmpty(player, 'a')) {
+                    if (this.runBoard.isNextTileEmpty(player, 'a')) {
                         this.runBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() - 1);
                         this.runBoard.addStepCount();
@@ -95,7 +95,7 @@ public class Engine {
                     break;
 
                 case 'd':
-                    if (this.runBoard.isNextMoveEmpty(player, 'd')) {
+                    if (this.runBoard.isNextTileEmpty(player, 'd')) {
                         this.runBoard.removeCreature(player);
                         player.setyPosition(player.getyPosition() + 1);
                         this.runBoard.addStepCount();
