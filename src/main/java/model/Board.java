@@ -122,30 +122,30 @@ public class Board {
         switch (move) {
             case 'w':
                 if (this.boardTileMatrix[xPosCurrent-1][yPosCurrent]
-                        .getTileStatus() == Status.EMPTY) {
-                    isEmpty = true;
-                }
+                        .getTileStatus() == Status.EMPTY) isEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent-1][yPosCurrent]
+                        .getTileStatus() == Status.ENEMY) System.out.println("well done!");
                 break;
 
             case 's':
                 if (this.boardTileMatrix[xPosCurrent+1][yPosCurrent]
-                        .getTileStatus() == Status.EMPTY) {
-                    isEmpty = true;
-                }
+                        .getTileStatus() == Status.EMPTY) isEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent+1][yPosCurrent]
+                        .getTileStatus() == Status.ENEMY) System.out.println("well done!");
                 break;
 
             case 'a':
                 if (this.boardTileMatrix[xPosCurrent][yPosCurrent-1]
-                        .getTileStatus() == Status.EMPTY) {
-                    isEmpty = true;
-                }
+                        .getTileStatus() == Status.EMPTY) isEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent][yPosCurrent-1]
+                        .getTileStatus() == Status.ENEMY) System.out.println("well done!");
                 break;
 
             case 'd':
                 if (this.boardTileMatrix[xPosCurrent][yPosCurrent+1]
-                        .getTileStatus() == Status.EMPTY) {
-                    isEmpty = true;
-                }
+                        .getTileStatus() == Status.EMPTY) isEmpty = true;
+                if (this.boardTileMatrix[xPosCurrent][yPosCurrent+1]
+                        .getTileStatus() == Status.ENEMY) System.out.println("well done!");
                 break;
         }
         return isEmpty;

@@ -29,12 +29,16 @@ public class Engine {
         HashSet<Creature> entitySet = new HashSet<>();
 
         Player player_01 = new Player(Status.PLAYER, 100, 77, 50);
-        player_01.setxPosition(Util.getRandomIntFromRange(1, 10));
-        player_01.setyPosition(Util.getRandomIntFromRange(1, 10));
+        player_01.setxPosition(2);
+        player_01.setyPosition(2);
 
         Enemy enemy_01 = new Enemy(Status.ENEMY, 50, 33, 25);
-        enemy_01.setxPosition(Util.getRandomIntFromRange(1, 10));
-        enemy_01.setyPosition(Util.getRandomIntFromRange(1, 10));
+        enemy_01.setxPosition(2);
+        enemy_01.setyPosition(18);
+
+//        Enemy enemy_01 = new Enemy(Status.ENEMY, 50, 33, 25);
+//        enemy_01.setxPosition(Util.getRandomIntFromRange(1, 10));
+//        enemy_01.setyPosition(Util.getRandomIntFromRange(1, 10));
 
         entitySet.add(player_01);
         entitySet.add(enemy_01);
@@ -55,6 +59,9 @@ public class Engine {
         while (isRunning) {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Step counter:" + startBoard.getStepCounter());
+
+//            System.out.println("player - x(y):" + player.getxPosition() + " y(x):" + player.getyPosition());
+
             this.runBoard.printBoard();
             String input = scanner.nextLine();
             char command = input.charAt(0);
